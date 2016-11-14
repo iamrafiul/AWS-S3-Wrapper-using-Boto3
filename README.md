@@ -9,7 +9,7 @@ The main file is the Amazon_S3_Wrapper.py and I have done the following steps.
 
 ### Functionalities: 
 #### Creating S3 resource and client
-Resource and client are created during the construction of class.
+Resource and client are created once during the construction of class and will be available throughout the program lifecycle.
 ```
 def __init__(self):
     self.s3 = boto3.resource('s3')
