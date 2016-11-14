@@ -1,7 +1,7 @@
-# AWS-S3-Experiment-using-Boto3
+# Amazon AWS S3 experiment using Boto3
 
 ## Introduction
-This is an example of using Boto3, AWS API for python, for creating S3(Simple Storage Servic) bucket(s) as well as uploading/downloading/deleting files.
+This is an example of using Boto3, AWS API for python, for creating S3(Simple Storage Service) bucket(s) as well as uploading/downloading/deleting files from bucket(s).
 
 The main file is the Amazon_S3_Wrapper.py and I have done the following steps.
 
