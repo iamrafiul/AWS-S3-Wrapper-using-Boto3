@@ -7,7 +7,7 @@ The main file is the Amazon_S3_Wrapper.py and I have done the following steps.
 
 ###Note: I haven't set up the aws_access_key_id and aws_secret_access_key in this example. Please follow this [link](https://github.com/boto/boto3) for a quickstart.
 
-### Functionalities: 
+## Functionalities: 
 #### Creating S3 resource and client
 Resource and client are created once during the construction of class and will be available throughout the program lifecycle.
 ```
