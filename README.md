@@ -15,12 +15,21 @@ def __init__(self):
     self.s3 = boto3.resource('s3')
     self.client = boto3.client('s3')
 ```
+
+#### List all the buckets in S3
+List all the buckets of a given region. Return the list of bucket names.
+
+```
+list_buckets(region)
+```
+
 #### Create bucket in S3
 Create buckets of same name in different regions. You can repeat the bucket creation using the last param 'repeat'. Return None if successful, otherwise error.
 
 ```
 create_buckets(bucket_name=None, regions=[], repeat=1)
 ```
+
 #### Upload file in S3 bucket
 Upload a file of name 'filename' in the bucket named 'bucket' and set the key for the server file as 'key'. Return the key . Key for success, False otherwise.
 
