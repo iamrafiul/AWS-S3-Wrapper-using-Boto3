@@ -1,3 +1,10 @@
+# @Author: mdrhri-6
+# @Date:   2016-11-14T18:29:46+01:00
+# @Last modified by:   mdrhri-6
+# @Last modified time: 2016-11-14T19:44:10+01:00
+
+
+
 import boto3
 import botocore
 import random
@@ -17,6 +24,22 @@ class S3Manager:
         self.client = boto3.client('s3')
 
     '''
+        List all the buckets of your region of choice
+
+        Input:
+            regions (String) -- [REQUIRED]
+
+        Output:
+            list: All the bucket names of the specified regions
+    '''
+
+    def list_buckets(self, region):
+        bucketList = list()
+        for idx, each in enumerate(self.s3.buckets.all()):
+            bucketList.insert(idx, each._name)
+        return bucketList
+
+    '''
         Create buckets with random name for the given regions list with ACL private.
 
         Input:
@@ -25,7 +48,7 @@ class S3Manager:
             repeat (Integer) -- Number of times you want to repeat the "regions" list(Default is 1)
 
         Output:
-            bucket_name: Return newly created bucket name if successful, 0 otherwise.
+            None
     '''
     def create_buckets(self, bucket_name=None, regions=[], repeat=1):
         if len(regions) == 0:
@@ -36,7 +59,7 @@ class S3Manager:
             for idx, each in enumerate(regions):
                 try:
                     # If bucket name is not given, create a random name
-                    bucket_name = bucket_name if bucket_name != None else "".join([random.choice(string.letters) for i in xrange(15)]).lower()
+                    bucket_name = bucket_name if bucket_name is not None else "".join([random.choice(string.letters) for i in xrange(15)]).lower()
                     kw_args = {
                         'Bucket': bucket_name,
                         'ACL': 'private',
@@ -44,12 +67,12 @@ class S3Manager:
                             'LocationConstraint': each
                         }
                     }
+
                     # Create a bucket
                     bucket = self.client.create_bucket(**kw_args)
                     # Check if the bucket is created successfully of not.
                     if bucket['ResponseMetadata']['HTTPStatusCode'] == 200:
                         print "Created new bucket {} at region {}".format(bucket_name, each)
-                        return bucket_name
                     else:
                         print "Can not create a new bucket of name {}".format(bucket_name)
 
@@ -232,7 +255,7 @@ class S3Manager:
         # fig.suptitle('S3 Latency Test', fontsize=14, fontweight='bold')
 
         f, (ax, ax1) = plt.subplots(2, sharex=True, sharey=True)
-        f.suptitle('S3 Latency Test', fontsize=14, fontweight='bold')
+        f.suptitle('S3 Upload/Download Latency Test', fontsize=14, fontweight='bold')
 
         # Upload Graph
         f.subplots_adjust(top=0.90)
@@ -272,4 +295,3 @@ class S3Manager:
             ax1.plot(plot_data[2], each, marker='o', color=colors[idx])
         ax1.axis([0, 5, 0, 20])
         return plt
-
